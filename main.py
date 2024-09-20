@@ -14,6 +14,11 @@ dp = Dispatcher()
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(name)s - %(levelname)s - %(message)s')
 
 
+async def notify_error():
+    await bot.send_message('712481558', 'Произошла ошибка. Бот отключился!')
+    return False
+
+
 async def start():
     dp.include_router(router)
 
@@ -25,7 +30,8 @@ async def start():
         await dp.start_polling(bot)  # Передаём объект бота для запуска опроса
     except Exception as e:
         logging.error(f'Произошла ошибка: {e}')
-        await bot.send_message('712481558', f'Произошла ошибка - {e}. Бот отключился!')
+        await notify_error()  # Уведомление об ошибке
+
     finally:
         await bot.session.close()
 

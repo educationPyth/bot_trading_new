@@ -35,7 +35,6 @@ async def check_transactions(user_id, chat_id):
                     else:
                         address = link
                     links[name] = address
-                    x = links[name] = address
 
         # data parser
         data_transaction = await parse_transactions(user_id=user_id, chat_id=chat)

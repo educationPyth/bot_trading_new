@@ -197,11 +197,12 @@ async def start_bot(message: Message, bot: Bot):
         data_parser = await check_transactions(user_id=user_id, chat_id=chat_id)
         await asyncio.sleep(time_delay)
 
-        if data_parser is None:
-            await bot.send_message(chat_id=chat_id, text='Проблемы с Coinmarketcup. Что-то пошло не так... попробуйте повторить позже.')
-        elif data_parser == 'equally':
+        if data_parser == 'equally':
+            print('equally')
             continue
-        else:
+        elif data_parser:
+            print(type(data_parser))
+            print(data_parser)
             text = data_parser['html']
             photo = data_parser['photo']
 
@@ -213,6 +214,9 @@ async def start_bot(message: Message, bot: Bot):
                                      parse_mode='HTML')
             else:
                 await bot.send_message(chat_id=chat_id, text=f'{text}',reply_markup=await kb.user_links(f'{chat_id}'),  parse_mode='HTML')
+        else:
+            await bot.send_message(chat_id=chat_id, text='Проблемы с Coinmarketcup. Что-то пошло не так... попробуйте заменить контракт или повторить позже.')
+            break
 
 
 
