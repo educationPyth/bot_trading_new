@@ -27,8 +27,9 @@ async def get_start(message: Message, bot: Bot):
 
 
 @router.message(Command('start_settings'))
-async def start_settings(message: Message, state: FSMContext):
-    await message.answer('Выберите пункты для настройки:', reply_markup=await kb.menu())
+async def start_settings(message: Message, bot: Bot, state: FSMContext):
+    user_id = message.from_user.id
+    await bot.send_message(chat_id=user_id, text='Выберите пункты для настройки:', reply_markup=await kb.menu())
 
 
 @router.message(Command('menu'))
