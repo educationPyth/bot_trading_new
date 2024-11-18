@@ -55,7 +55,7 @@ async def view_channel(user_id):
         for bot in data['bots']:  # Перебираем список словарей в поле 'bots'
             keyboard_builder.button(text=bot['title_channel'], callback_data=f'name_{bot["id"]}')
         keyboard_builder.button(text='На главную 🏡', callback_data='home')
-        return keyboard_builder.adjust(1).as_markup()
+        return keyboard_builder.adjust(2).as_markup()
 
 
 async def edit(bot_id):

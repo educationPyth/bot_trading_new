@@ -6,6 +6,7 @@ from core.handlers.basic import router
 from database.models import async_main
 from core.utils.commands import set_commands
 
+
 bot = Bot(token=settings.bots.bot_token)
 dp = Dispatcher()
 

@@ -22,6 +22,7 @@ async def parse_transactions(user_id, chat_id):
         data = parse_general_information(token)
         if data.get('data') is None:
             return False
+        print(data)
         platform_id = data['data']['platform']['id']
         pool_id = data['data']['poolId']
         name_coin = data['data']['baseToken']['symbol']
@@ -29,14 +30,11 @@ async def parse_transactions(user_id, chat_id):
         volume24 = data['data']['volume24h']
         contract = data['data']['address']
         liquidity = data['data']['poolInfoD']['liquidity']
-        # transaction_info
+
         url_transactions = f'https://api.coinmarketcap.com/kline/v3/k-line/transactions/{platform_id}/{pool_id}?reverse-order=true'
         data_transactions = requests.get(url=url_transactions)
-        print(transactions_time)
-        # print(data_transactions)
         if data_transactions.status_code == 200:
             data = data_transactions.json()
-            # print(data)
 
             first_transaction = data['data']['transactions'][0]
             time_first_transaction = int(first_transaction['time'])

@@ -1,13 +1,13 @@
 import asyncio
 
 from aiogram import Bot
-from aiogram.filters import Command, CommandStart
+from aiogram.filters import Command
 from aiogram.types import Message, CallbackQuery
 from aiogram.fsm.context import FSMContext
 from aiogram import F, Router
 
 from core.parser.handler_parser import check_transactions
-from core.utils.callbackdata import UserChannel, UserEditChannel, RemoveChannel
+from core.utils.callbackdata import UserChannel,  RemoveChannel
 import core.keyboards.inline as kb
 import database.requests as rq
 
@@ -62,8 +62,8 @@ async def get_back(callback: CallbackQuery):
 @router.callback_query(F.data == 'contract')
 async def get_contract(callback: CallbackQuery, state: FSMContext):
     await callback.answer()
-    await callback.message.answer('Введите контракт c coinmarketcap (‼️‼️  ️contract pair ‼️‼️)\n'
-                                  'Основной контракт не подойдет.')
+    await callback.message.answer('Введите контракт c coinmarketcap (‼️‼️  <b>>CONTRACT PAIR</b> ‼️‼️)\n'
+                                  'Основной контракт не подойдет.', parse_mode='HTML')
     await state.set_state(UserChannel.contract)
 
 
@@ -179,6 +179,7 @@ async def delete_bot(callback: CallbackQuery, state: FSMContext):
     await rq.delete_data(bot_id)
     await callback.message.answer(f'Бот удален!✅\n\n'
                                   f'Список оставшихся подключенных каналов:👇👇👇\b', reply_markup=await kb.view_channel(user_id))
+    await state.clear()
 
 
 @router.callback_query(F.data == 'edit_bot')
