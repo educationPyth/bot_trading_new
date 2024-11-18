@@ -61,6 +61,7 @@ async def check_transactions(user_id, chat_id):
                 type_transactions = data_transaction['data']['transactions'][0]['type']
                 price_usdt = data_transaction['data']['transactions'][0]['priceUsd']
                 amount = data_transaction['data']['transactions'][0]['amount']
+                print(data_transaction['data']['transactions'][0]['totalUsd'][:5])
                 total_usdt = data_transaction['data']['transactions'][0]['totalUsd'][:5]
                 total_quote = data_transaction['data']['transactions'][0]['totalQuote']
                 volume24 = data_transaction['volume24']
